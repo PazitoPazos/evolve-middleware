@@ -12,35 +12,36 @@ wss.on('connection', (wsnext) => {
   console.log('WS NextJS conectado')
 
   const wsmc = new WebSocket('ws://192.168.1.200:8080')
+
   // Escuchar eventos del WebSocket
   wsmc.on('open', () => {
     console.log('Evolve API conectado')
-    wsnext.on('message', (message) => {
-      // Enviar comando al servidor de Minecraft
-      wsmc.send(message.toString())
-      // Escuchar eventos de mensajes recibidos del servidor
-      wsmc.on('message', (data) => {
-        console.log(`Evolve API: ${data.toString()}`)
-        wsnext.send(data.toString())
-        // Aquí puedes procesar los datos recibidos según tus necesidades
-      })
 
-      // Manejar eventos de cierre de la conexión
-      wsmc.on('close', () => {
-        console.log({
+    // Escuchar eventos de mensajes recibidos del servidor
+    wsmc.on('message', (data) => {
+      console.log(`Evolve API: ${data.toString()}`)
+      wsnext.send(data.toString())
+    })
+
+    // Manejar eventos de cierre de la conexión
+    wsmc.on('close', () => {
+      console.log('Evolve API cerrado')
+
+      wsnext.send(
+        JSON.stringify({
           stream: 'server',
           type: 'status',
           data: 'Evolve API cerrado'
         })
-        wsnext.send(
-          JSON.stringify({
-            stream: 'server',
-            type: 'status',
-            data: 'Evolve API cerrado'
-          })
-        )
-      })
+      )
     })
+  })
+
+  wsnext.on('message', (message) => {
+    if (wsmc.OPEN) {
+      // Enviar comando al servidor de Minecraft
+      wsmc.send(message.toString())
+    }
   })
 
   wsmc.on('error', (error) => {
