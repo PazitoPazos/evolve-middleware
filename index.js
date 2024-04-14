@@ -17,18 +17,28 @@ wss.on('connection', (wsnext) => {
     console.log('Evolve API conectado')
     wsnext.on('message', (message) => {
       // Enviar comando al servidor de Minecraft
-      wsmc.send(message)
+      wsmc.send(message.toString())
       // Escuchar eventos de mensajes recibidos del servidor
       wsmc.on('message', (data) => {
-        console.log(`Evolve API: ${data}`)
-        wsnext.send(data)
+        console.log(`Evolve API: ${data.toString()}`)
+        wsnext.send(data.toString())
         // Aquí puedes procesar los datos recibidos según tus necesidades
       })
 
       // Manejar eventos de cierre de la conexión
       wsmc.on('close', () => {
-        console.log('Evolve API cerrado')
-        wsnext.send('Evolve API cerrado')
+        console.log({
+          stream: 'server',
+          type: 'status',
+          data: 'Evolve API cerrado'
+        })
+        wsnext.send(
+          JSON.stringify({
+            stream: 'server',
+            type: 'status',
+            data: 'Evolve API cerrado'
+          })
+        )
       })
     })
   })
