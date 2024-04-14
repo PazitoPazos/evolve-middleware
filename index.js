@@ -38,9 +38,12 @@ wss.on('connection', (wsnext) => {
   })
 
   wsnext.on('message', (message) => {
-    if (wsmc.OPEN) {
+    // Verificar si el WebSocket está abierto
+    if (wsmc.readyState === WebSocket.OPEN) {
       // Enviar comando al servidor de Minecraft
       wsmc.send(message.toString())
+    } else {
+      console.error('El WebSocket no está abierto')
     }
   })
 
