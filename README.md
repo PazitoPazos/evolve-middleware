@@ -25,7 +25,7 @@ To run the middleware, you will need to have the following installed on your sys
     cd evolve-middleware
     ```
 
-3. Install dependences:
+3. Install dependencies:
 
     ```bash
     npm install
