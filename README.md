@@ -4,6 +4,11 @@
 
 This repository is part of the Evolve project. It contains the middleware that connects the web application with the API.
 
+## Related repos
+ - [Evolve](https://github.com/PazitoPazos/evolve)
+ - [Evolve API](https://github.com/PazitoPazos/evolve-api)
+ - [Evolve Vagrant](https://github.com/PazitoPazos/evolve-vagrant)
+
 ## Requirements
 
 To run the middleware, you will need to have the following installed on your system:
@@ -11,7 +16,7 @@ To run the middleware, you will need to have the following installed on your sys
 - NodeJS 17+
 - `ws` package
 
-## Installation
+## Setup
 
 1. Clone this repository on your local machine:
 
