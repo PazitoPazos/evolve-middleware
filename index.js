@@ -11,7 +11,7 @@ wss.on('connection', (wsnext) => {
   // Conexión con la App de NextJS
   console.log('WS NextJS conectado')
 
-  const wsmc = new WebSocket('ws://192.168.1.200:8080')
+  const wsmc = new WebSocket('ws://192.168.1.71:8080')
 
   // Escuchar eventos del WebSocket
   wsmc.on('open', () => {
